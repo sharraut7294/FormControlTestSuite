@@ -23,8 +23,8 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
+            <version>7.7.0</version> <!-- Specify the exact version -->
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>
