@@ -172,7 +172,7 @@ public class FormControlTests {
         assertThat(formPage.getNonEnglishCheckValidate()).hasText("मराठी ગુજરાતી ਪੰਜਾਬੀ");
 
         formPage.unCheckNonEnglishLanguage(new String[]{"language1", "language2"});
-        assertThat(page.locator("#check_validate_non_english")).hasText("ਪੰਜਾਬੀ");
+        assertThat(formPage.getNonEnglishCheckValidate()).hasText("ਪੰਜਾਬੀ");
     }
 
 
