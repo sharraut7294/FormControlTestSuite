@@ -4,8 +4,9 @@ import com.microsoft.playwright.Page;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class FormPlayGroundPage {
     private final Page page;
@@ -43,6 +44,24 @@ public class FormPlayGroundPage {
     private final Locator downloadFileLink;
     private final Locator currentSalaryLabel;
     private final Locator currentSalaryInput;
+    private final Locator submitFormButton;
+    private final Locator invalidCity;
+    private final Locator invalidState;
+    private final Locator invalidZip;
+    private final Locator invalidTerms;
+    private final Locator cityInput;
+    private final Locator stateInput;
+    private final Locator nonEnglishNameLabel;
+    private final Locator nonEnglishNameInput;
+    private final Locator nonEnglishNameValidate;
+    private final Locator  language1Checkbox;
+    private final Locator  language2Checkbox;
+    private final Locator  language3Checkbox;
+    private final Locator nonEnglishCheckValidate;
+
+    private final Map<String, Consumer<Void>> checkNonEnglishLanguage = new HashMap<>();
+    private final Map<String, Consumer<Void>> unCheckNonEnglishLanguage = new HashMap<>();
+
 
 
     public FormPlayGroundPage(Page page) {
@@ -81,7 +100,20 @@ public class FormPlayGroundPage {
         this.downloadFileLink = page.locator("#download_file");
         this.currentSalaryLabel = page.locator("label[for='salary']");
         this.currentSalaryInput = page.locator("#salary");
-
+        this.submitFormButton = page.locator(".btn-primary[type='submit']");
+        this.invalidCity = page.locator(".invalid-feedback#invalid_city");
+        this.invalidState = page.locator(".invalid-feedback#invalid_state");
+        this.invalidZip = page.locator(".invalid-feedback#invalid_zip");
+        this.invalidTerms = page.locator(".invalid-feedback#invalid_terms");
+        this.cityInput = page.locator("input#validationCustom03");
+        this.stateInput = page.locator("input#validationCustom04");
+        this.nonEnglishNameLabel = page.locator("label[for='नाव']");
+        this.nonEnglishNameInput = page.locator("input#नाव");
+        this.nonEnglishNameValidate = page.locator("#नाव_तपासा");
+        this.language1Checkbox = page.locator("input[type='checkbox']#मराठी");
+        this.language2Checkbox = page.locator("input[type='checkbox']#ગુજરાતી");
+        this.language3Checkbox = page.locator("input[type='checkbox']#ਪੰਜਾਬੀ");
+        this.nonEnglishCheckValidate = page.locator("#check_validate_non_english");
     }
 
     public void enterYearsOfExperience(String years) {
@@ -290,4 +322,82 @@ public class FormPlayGroundPage {
     public boolean isSalaryDisabled(){
         return (boolean) (Boolean) page.evalOnSelector("#salary", "el => el.hasAttribute('disabled')");
     }
+
+    public void clickOnSubmitForm(){
+        submitFormButton.click();
+    }
+
+    public Locator getInvalidCity(){
+        return invalidCity;
+    }
+
+    public Locator getInvalidZip(){
+        return invalidZip;
+    }
+
+    public Locator getInvalidState(){
+        return invalidState;
+    }
+    public Locator getInvalidTerms(){
+        return invalidTerms;
+    }
+
+    public void enterCity(String city){
+        cityInput.type(city);
+    }
+
+    public void enterState(String state){
+        stateInput.type(state);
+    }
+
+    public void clearCity(){
+        cityInput.clear();
+    }
+
+    public void clearState(){
+        stateInput.clear();
+    }
+
+    public Locator getNonEnglishNameLabel(){
+        return nonEnglishNameLabel;
+    }
+
+    public void enterName(String name){
+        nonEnglishNameInput.type(name);
+    }
+
+    public Locator getNonEnglishNameValidate(){
+        return nonEnglishNameValidate;
+    }
+
+    public void checkNonEnglishLanguage(String[] languages) {
+        checkNonEnglishLanguage.put("language1", v -> language1Checkbox.check());
+        checkNonEnglishLanguage.put("language2", v -> language2Checkbox.check());
+        checkNonEnglishLanguage.put("language3", v -> language3Checkbox.check());
+
+        for (String lang : languages) {
+            Consumer<Void> action = checkNonEnglishLanguage.get(lang);
+            if (action != null) {
+                action.accept(null);
+            }
+        }
+    }
+
+    public void unCheckNonEnglishLanguage(String[] languages) {
+        unCheckNonEnglishLanguage.put("language1", v -> language1Checkbox.uncheck());
+        unCheckNonEnglishLanguage.put("language2", v -> language2Checkbox.uncheck());
+        unCheckNonEnglishLanguage.put("language3", v -> language3Checkbox.uncheck());
+
+        for (String lang : languages) {
+            Consumer<Void> action = unCheckNonEnglishLanguage.get(lang);
+            if (action != null) {
+                action.accept(null);
+            }
+        }
+    }
+
+    public Locator getNonEnglishCheckValidate(){
+        return nonEnglishCheckValidate;
+    }
+
 }
