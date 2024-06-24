@@ -129,11 +129,50 @@ public class FormControlTests {
     @Test()
     public void validateFormValidations(){
 
+        //Check form with error validations
+        FormPlayGroundPage formPage = new FormPlayGroundPage(page);
+
+        formPage.enterCity("Dublin");
+        formPage.enterState("Leinster");
+        formPage.clickOnSubmitForm();
+        assertThat(formPage.getInvalidCity()).isHidden();
+        assertThat(formPage.getInvalidState()).isHidden();
+        assertThat(formPage.getInvalidZip()).isVisible();
+        assertThat(formPage.getInvalidZip()).hasText("Please provide a valid zip.");
+        assertThat(formPage.getInvalidTerms()).isVisible();
+        assertThat(formPage.getInvalidTerms()).hasText("You must agree before submitting.");
+
+        formPage.clearCity();
+        formPage.clearState();
+        formPage.clickOnSubmitForm();
+        assertThat(formPage.getInvalidCity()).isVisible();
+        assertThat(formPage.getInvalidCity()).hasText("Please provide a valid city.");
+        assertThat(formPage.getInvalidState()).isVisible();
+        assertThat(formPage.getInvalidState()).hasText("Please provide a valid state.");
+        assertThat(formPage.getInvalidZip()).isVisible();
+        assertThat(formPage.getInvalidZip()).hasText("Please provide a valid zip.");
+        assertThat(formPage.getInvalidTerms()).isVisible();
+        assertThat(formPage.getInvalidTerms()).hasText("You must agree before submitting.");
     }
 
     @Test()
     public void validateNonEnglishLabelsAndLocators(){
 
+        //Check non english locators and visible text
+        FormPlayGroundPage formPage = new FormPlayGroundPage(page);
+
+        assertThat(formPage.getNonEnglishNameLabel()).hasText("आपले नांव लिहा");
+        formPage.enterName("John Doe");
+        assertThat(formPage.getNonEnglishNameValidate()).hasText("John Doe");
+
+        formPage.checkNonEnglishLanguage(new String[]{"language1", "language2"});
+        assertThat(formPage.getNonEnglishCheckValidate()).hasText("मराठी ગુજરાતી");
+
+        formPage.checkNonEnglishLanguage(new String[]{"language3"});
+        assertThat(formPage.getNonEnglishCheckValidate()).hasText("मराठी ગુજરાતી ਪੰਜਾਬੀ");
+
+        formPage.unCheckNonEnglishLanguage(new String[]{"language1", "language2"});
+        assertThat(page.locator("#check_validate_non_english")).hasText("ਪੰਜਾਬੀ");
     }
 
 
