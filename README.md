@@ -18,6 +18,7 @@ This project contains automated UI tests implemented using Playwright using Java
 To run tests locally:
 - Execute `mvn test` from the project root directory.
 - Alternatively you can right-click on testng.xml file and then click on Run option
+  ![image](https://github.com/sharraut7294/FormControlTestSuite/blob/master/FormTestExecution.png)
   
 
 ## Playwright Overview
