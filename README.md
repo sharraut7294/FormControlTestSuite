@@ -24,6 +24,9 @@ Playwright is a powerful automation library developed by Microsoft for testing w
 - Network Interception: Modify network requests and responses to simulate various network conditions and test edge cases.
 - Intuitive API: Clean and easy-to-use API for navigating web pages, interacting with elements, and handling complex scenarios.
 
+## Page Object Model (POM)
+- The Page Object Model is implemented to encapsulate web elements and actions into separate page classes. This approach enhances maintainability by keeping test code and page navigation separate.
+
 ## TestNG Integration
 - TestNG is used as the test runner framework to organize and execute tests in this project. It provides powerful annotations and features for test management and reporting.
 
