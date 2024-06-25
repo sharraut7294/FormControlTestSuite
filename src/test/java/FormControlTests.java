@@ -5,10 +5,13 @@ import testdata.*;
 import org.testng.Assert;
 import java.util.Hashtable;
 import java.util.Map;
+import io.qameta.allure.testng.AllureTestNg;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
-
+@Listeners({io.qameta.allure.testng.AllureTestNg.class})
 public class FormControlTests {
 
     private Playwright playwright;
@@ -44,11 +47,12 @@ public class FormControlTests {
     @Test()
     public void validateBasicFormControls(){
 
-        //Validating years of experience
         FormPlayGroundPage formPage = new FormPlayGroundPage(page);
+
+        //Validating years of automation experience
         assertThat(formPage.getYearsOfExperienceInput()).hasAttribute("placeholder", "years of automation experience");
-        formPage.enterYearsOfExperience("7");
-        assertThat(formPage.getYearsOfExperienceValue()).hasText("7");
+        formPage.enterYearsOfExperience("8");
+        assertThat(formPage.getYearsOfExperienceValue()).hasText("8");
 
         //Validating languages and tools
         assertThat(formPage.getJavaCheckBox()).isDisabled();
