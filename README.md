@@ -14,13 +14,6 @@ This project contains automated UI tests implemented using Playwright using Java
 3. Install Maven (version 4.0.0 or higher).
 4. Run `mvn clean install` to install dependencies.
 
-## Running Tests
-To run tests locally:
-- Execute `mvn test` from the project root directory.
-- Alternatively you can right-click on testng.xml file and then click on Run option
-  ![image](https://github.com/sharraut7294/FormControlTestSuite/blob/master/FormTestExecution.png)
-  
-
 ## Playwright Overview
 Playwright is a powerful automation library developed by Microsoft for testing web applications. It offers several key features:
 
@@ -34,6 +27,16 @@ Playwright is a powerful automation library developed by Microsoft for testing w
 ## TestNG Integration
 - TestNG is used as the test runner framework to organize and execute tests in this project. It provides powerful annotations and features for test management and reporting.
 
+## Running Tests
+To run tests locally:
+- Execute `mvn test` from the project root directory.
+- Alternatively you can right-click on testng.xml file and then click on Run option
+  ![image](https://github.com/sharraut7294/FormControlTestSuite/blob/master/FormTestExecution.png)
+  
+
 ## Allure Reporting
 - Allure is integrated for generating comprehensive and interactive test reports.
 - After running tests, generate and view reports using the following command: `allure serve target/allure-results`.
+ ![image](https://github.com/sharraut7294/FormControlTestSuite/blob/master/Allure%20Report%20Execution1.png)
+ ![image](https://github.com/sharraut7294/FormControlTestSuite/blob/master/Allure%20Report%20Execution2.png)
+
