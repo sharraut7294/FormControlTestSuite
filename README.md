@@ -1,7 +1,7 @@
 # Playwright with Java Tests
 
 ## Introduction
-This project contains automated UI tests implemented using Playwright with Java for testing different forms hosted on playground webpage https://play1.automationcamp.ir/forms.html
+This project contains automated UI tests implemented using Playwright framework with Java for testing different forms hosted on playground webpage https://play1.automationcamp.ir/forms.html
 
 ## Features
 - Basic form controls
