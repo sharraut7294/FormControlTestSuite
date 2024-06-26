@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public class FormPlayGroundPage {
     private final Page page;
     private final Locator yearsOfExperienceInput;
@@ -59,10 +61,8 @@ public class FormPlayGroundPage {
     private final Locator  language3Checkbox;
     private final Locator nonEnglishCheckValidate;
 
-    private final Map<String, Consumer<Void>> checkNonEnglishLanguage = new HashMap<>();
-    private final Map<String, Consumer<Void>> unCheckNonEnglishLanguage = new HashMap<>();
-
-
+    Map<String, Consumer<Void>> checkNonEnglishLanguage = new HashMap<>();
+    Map<String, Consumer<Void>> unCheckNonEnglishLanguage = new HashMap<>();
 
     public FormPlayGroundPage(Page page) {
         this.page = page;
@@ -269,6 +269,7 @@ public class FormPlayGroundPage {
         return uploadCVLabel;
     }
 
+    //This method will upload single file on the webpage based on the file name passed
     public void uploadCV(String pdfName){
         String relativePath = "src/main/java/testdata/testfiles/"+pdfName;
         chooseSingleFile.setInputFiles(Paths.get(relativePath));
@@ -282,6 +283,7 @@ public class FormPlayGroundPage {
         return uploadCertificateLabel;
     }
 
+    //This method will upload multiple files on the webpage based on the file names passed
     public void uploadCertificates(String[] certificates){
         Path[] filePaths = new Path[certificates.length];
         for (int i = 0; i < certificates.length; i++) {
@@ -304,6 +306,7 @@ public class FormPlayGroundPage {
         return downloadFileLink;
     }
 
+    //This method will download the file from the Webpage, save it in the testfiles directory and return the url associated with the downloaded file
     public String downloadFile(){
         Download download = page.waitForDownload(downloadFileLink::click);
         String relativeDownloadPath = "src/main/java/testdata/testfiles/";
@@ -370,6 +373,7 @@ public class FormPlayGroundPage {
         return nonEnglishNameValidate;
     }
 
+    //This method will check the language checkbox based on the language received
     public void checkNonEnglishLanguage(String[] languages) {
         checkNonEnglishLanguage.put("language1", v -> language1Checkbox.check());
         checkNonEnglishLanguage.put("language2", v -> language2Checkbox.check());
@@ -383,6 +387,7 @@ public class FormPlayGroundPage {
         }
     }
 
+    //This method will uncheck the language checkbox based on the language received
     public void unCheckNonEnglishLanguage(String[] languages) {
         unCheckNonEnglishLanguage.put("language1", v -> language1Checkbox.uncheck());
         unCheckNonEnglishLanguage.put("language2", v -> language2Checkbox.uncheck());
@@ -398,6 +403,12 @@ public class FormPlayGroundPage {
 
     public Locator getNonEnglishCheckValidate(){
         return nonEnglishCheckValidate;
+    }
+
+    //Common assertion across all tests to check the visibility and text content of the values displayed after input is added to each field
+    public void validateElementVisibilityAndText(Locator validateLocator, String expectedText){
+        assertThat(validateLocator).isVisible();
+        assertThat(validateLocator).hasText(expectedText);
     }
 
 }
